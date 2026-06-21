@@ -16,14 +16,16 @@ texts = {
 t = texts[lang]
 st.title(f"🌍 {t['title']}")
 
-# Abas Principais (Sem o cartão e o vídeo por enquanto para não dar erro)
+# Abas Principais
 tab1, tab2, tab3 = st.tabs([t['tab1'], t['tab2'], t['tab3']])
 
 with tab1:
     st.write("Monitoramento em tempo real da Biorrefinaria...")
 
 with tab2:
-    st.write("Vídeo será carregado em breve.")
+    st.header(t['tab2'])
+    # Inserindo o seu vídeo aqui:
+    st.video("https://youtu.be/lmrCoiHifbo")
 
 with tab3:
     st.write("Dados de inventário em carregamento...")
