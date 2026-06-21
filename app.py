@@ -1,43 +1,43 @@
-
 import streamlit as st
-import urllib
 
-# 1. Cabeçalho Principal
-st.set_page_config(page_title="Baccharis Bio Tech", page_icon="🌱", layout="wide")
-st.title("🌱 Baccharis OS - Sistema Central")
-st.subheader("Biorrefinaria e Gêmeo Digital (Conexão Japão ↔ Brasil)")
-st.success("Status: Sensores de Hardware Conectados e Operantes!")
+# Configuração da página
+st.set_page_config(page_title="Baccharis OS - Digital Twin", layout="wide")
 
-# 2. Painel de Interação e Mensagens
-st.divider() # Cria uma linha divisória na tela
-st.header("📡 Comunicação Global")
+# Seletor de Idioma
+lang = st.sidebar.selectbox("Language / Idioma / 言語", ["Português", "English", "日本語"])
 
-nome_socio = st.text_input("Qual o seu nome?")
-mensagem = st.text_input("Digite uma mensagem para a equipe:")
+# Dicionário de textos
+texts = {
+    "Português": {"title": "Baccharis OS - Sistema Central", "tab1": "Painel Biorrefinaria", "tab2": "Vídeo Institucional", "tab3": "Inventário WS Maps", "contact": "Contato"},
+    "English": {"title": "Baccharis OS - Central System", "tab1": "Biorefinery Panel", "tab2": "Institutional Video", "tab3": "WS Maps Inventory", "contact": "Contact"},
+    "日本語": {"title": "Baccharis OS - 中央システム", "tab1": "バイオリファイナリーパネル", "tab2": "紹介動画", "tab3": "WS Maps インベントリ", "contact": "連絡先"}
+}
 
-# Criando o primeiro botão
-if st.button("Enviar Mensagem"):
-    st.info(f"O sócio **{nome_socio}** enviou: {mensagem}")
+t = texts[lang]
 
-# 3. Painel de Controle de Hardware (Gêmeo Digital)
-st.divider()
-st.header("🏭 Controle da Torre 1 (Máquina)")
+# Título Principal
+st.title(f"🌍 {t['title']}")
 
-# Organizando os botões em duas colunas para ficar bonito
-col1, col2 = st.columns(2)
+# Barra Lateral: Cartão de Visita
+with st.sidebar:
+    st.image("cartao_baccharis.png", use_container_width=True) # Certifique-se que o nome do arquivo está exato!
+    st.subheader(t['contact'])
+    st.write("dosu.santosu@baccharisbio.com")
 
-with col1:
-    # Botão de Ligar a Máquina
-    if st.button("🔥 Ligar Secador Térmico"):
-        st.warning("ALERTA: Secador Térmico ativado! Temperatura subindo para 60°C.")
+# Abas Principais
+tab1, tab2, tab3 = st.tabs([t['tab1'], t['tab2'], t['tab3']])
 
-with col2:
-    # Botão de Extração
-    if st.button("💧 Iniciar Extração de Artepilin C"):
-        st.balloons() # Um efeito visual divertido do Streamlit
-        st.success("Extração iniciada com sucesso! Válvulas abertas.")
+with tab1:
+    st.header(t['tab1'])
+    st.write("Monitoramento de torres e processos em tempo real.")
+    # Aqui entra a lógica das torres que criamos no Colab
 
-# 4. Senha de Segurança no rodapé
-st.divider()
-senha_ip = urllib.request.urlopen('https://ipv4.icanhazip.com').read().decode('utf8').strip()
-st.caption(f"🔒 Chave de Segurança da Sessão: {senha_ip}")
+with tab2:
+    st.header(t['tab2'])
+    # Substitua a URL pela do vídeo oficial do Sítio Família Santos
+    st.video("https://www.youtube.com/watch?v=SEU_LINK_AQUI")
+
+with tab3:
+    st.header(t['tab3'])
+    st.write("Dados do inventário WS Maps.")
+    # Aqui você pode carregar seu CSV ou dados do inventário
